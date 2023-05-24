@@ -1,0 +1,46 @@
+<form [formGroup]="catalogForm" (ngsubmit)="onSubmit()">
+  <ion-card>
+     <ion-card-header>
+        <ion-card-title>Перелік студентів</ion-card-title>
+     </ion-card-header>
+     <ion-card-content>
+        <ion-item>
+           <ion-label position="floating">ПІБ: </ion-label>
+           <ion-input id="npap-name" type="text" formControlName="npap_name"></ion-input>
+        </ion-item>
+        <ion-item>
+           <ion-label position="floating">Адреса: </ion-label>
+           <ion-input id="npap-address" type="text" formControlName="npap_address"></ion-input>
+        </ion-item>
+        <ion-item>
+           <ion-label position="floating">Дата народження: </ion-label>
+           <ion-input id="birth-date" type="text" formControlName="npap_bdate"></ion-input>
+        </ion-item>
+        <ion-item>
+           <ion-label position="floating">Номер телефону: </ion-label>
+           <ion-input id="npap-tel" type="number" formControlName="npap_tel"></ion-input>
+        </ion-item>
+        <ion-card formArrayName="addtional">
+           <ion-card-header>
+              <ion-card-title>Cпособи зв'язку</ion-card-title>
+           </ion-card-header>
+           <ion-card-content>
+              <ion-button color="tertiary" (click)="addNpap()">
+                 <ion-icon slot="start" name="add"></ion-icon>
+                 Додати спосіб
+              </ion-button>
+              <ion-item *ngFor="let addtional of getControls(); let i = index">
+                 <ion-input type="text" formControlName={{i}} placeholder="Назва способу"></ion-input>
+                 <ion-button color="tertiary" (click)="deleteNpap(i)">
+                    <ion-icon slot="start" name="trash"></ion-icon>
+                    Видалити
+                 </ion-button>
+                </ion-item>
+           </ion-card-content>
+        </ion-card>
+     </ion-card-content>
+  </ion-card>
+  <ion-button type="submit" color="success" expand="block" [disabled]="!catalogForm.valid" (click)="onSubmit()">
+   Submit
+  </ion-button>
+</form>
