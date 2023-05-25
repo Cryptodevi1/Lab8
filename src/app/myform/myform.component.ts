@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup,FormControl,FormArray,FormBuilder, Validators } from '@angular/forms';
 import { Catalog } from './class/catalog';
 import { dateValidator } from './Service/dateValidators';
@@ -16,6 +16,7 @@ export class MyformComponent  implements OnInit {
   catalogForm!:FormGroup;
   catalog!: Catalog;
 
+  @Output() studentAdd: EventEmitter<Catalog> = new EventEmitter<Catalog>();
   datePattern = "^[0-9]{2}[.-/][0-9]{2}[.-/][0-9]{4}$";
   constructor(private fb:FormBuilder ,private alertController:AlertController) {
     this.catalogForm = this.fb.group({
@@ -49,6 +50,7 @@ export class MyformComponent  implements OnInit {
   if(valid.validate_diff_date(bd,"17.05.2023")){
     this.catalog = new Catalog(name,address,bd,tel,addtional);
     console.log("Submit");
+    this.studentAdd.emit(this.catalog);
   }else
     this.presentAlert("")
 }

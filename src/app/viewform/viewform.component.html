@@ -1,0 +1,17 @@
+<app-myform (studentAdd)="addStudent($event)"></app-myform>
+<ion-card *ngFor="let catalog of catalogs; let i=index">
+  <ion-card-header>
+     <ion-card-title>{{catalog.name}}</ion-card-title>
+     <ion-card-subtitle>{{catalog.address}} - {{catalog.birth_date}}</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+     {{catalog.tel}}
+     <h2>Способи зв'язку</h2>
+     <ion-item *ngFor="let a of catalog.addtional">
+        {{a}}
+     </ion-item>
+  </ion-card-content>
+  <ion-button (click)="update()">Редагувати</ion-button>
+  <app-updateform [catalog]="catalog" [show]="show_update" *ngIf="show_update" (showChange)="showUp($event)" 
+  (studentChange)="update_save($event,i)"></app-updateform>
+</ion-card>
